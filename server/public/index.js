@@ -3,6 +3,7 @@
 (function(){
 var recorder;
 var audio_context;
+var questionNumber = 0;
 
 // On window load
 $(function () {
@@ -38,7 +39,9 @@ function startUserMedia(stream) {
     //input.connect(audio_context.destination);
     //__log('Input connected to audio context destination.');
 
-    recorder = new Recorder(input);
+    recorder = new Recorder(input, {
+        numChannels: 1
+    });
     console.log('Recorder initialised.');
 }
 
@@ -52,7 +55,7 @@ function toggleRecord() {
             recorder.stop()
             recorder.exportWAV((b) => { // Send data to server
                 sendData(b).then((next) => {
-                    setQuestion(next);
+                    updateQuestion();
                     recorder.clear();
                 })
                 .catch(() => {
@@ -66,11 +69,6 @@ function toggleRecord() {
         recording = !recording
         console.log('Recording: ', recording);   
     };
-}
-
-// TODO
-function setQuestion(q) {
-    console.log(q);
 }
 
 function sendData(b) {
@@ -89,6 +87,22 @@ function sendData(b) {
                     rej()
                 }
             });
+    });
+}
+
+function updateQuestion() {
+    return new Promise((res, rej) => {
+        $.ajax(`/interview/question/${questionNumber}`,{
+            success: (q) => {
+                $(".instructions").text(q.question);
+                questionNumber++;
+                res(q);
+            },
+            error: () => {
+                console.error("error getting question");
+                rej()
+            }
+        })
     });
 }
 })();

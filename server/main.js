@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var interview = require('./Routes/interview');
 var transcribe = require('./Routes/transcribe');
+var nlu = require('./Routes/nlu').nlu;
+var tone = require('./Routes/nlu').tone;
 var app = express();
 
 app.use(express.static('public'));
@@ -14,7 +16,18 @@ app.use('/interview', interview);
 
 app.post('/audio', function (req, res) {
 	console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
-	res.status(200).end();
+	transcribe(req.body)
+		.then((text) => {
+			return nlu(text);
+		})
+		.then((analRes) => {
+			console.log(analRes)
+			res.json(analRes);			
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).send();
+		})
 });
 
 var port = 4400;

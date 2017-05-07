@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/speech": "^0.9.1",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "google-speech": "0.0.5",

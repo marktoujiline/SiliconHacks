@@ -50,11 +50,11 @@ function toggleRecord() {
         // stop recording
         if (recording) {
             recorder.stop()
-            recorder.exportWAV((b) => {
+            recorder.exportWAV((b) => { // Send data to server
                 sendData().then((next) => {
                     setQuestion(next);
                     recorder.clear();
-                })                
+                });
             })
         } else {
             recorder.record()

@@ -1,0 +1,16 @@
+{
+  "name": "dobby-server",
+  "version": "1.0.0",
+  "description": "Server for Dobby the chat elf",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "watson-developer-cloud": "^2.31.1"
+  }
+}

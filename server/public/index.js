@@ -126,7 +126,6 @@ function showSummary() {
     for(var prop in results) {
         var r = $('.result');
         var title = $('<h1></h1>').text(prop).appendTo(r);
-        
         $("<h2></h2>")
             .text("Language level: " + results[prop][2])
             .appendTo(r);

@@ -3,9 +3,9 @@ var path = require('path')
 var router = express.Router();
 
 var questions = [
-    //'Why do you want to work for this company?',
-    // 'If you could move a mountain, where would you put it, and why?',
-    'How would you save the world?'
+    'Explain what recursion is for a kid',
+    'What is your biggest passion in life?',
+    'What was your favorite part of SiliconHacks?'
 ]
 
 router.get('/question/:id', function(req, res) {

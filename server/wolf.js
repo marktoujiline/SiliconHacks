@@ -17,9 +17,11 @@ module.exports = function(topic, other) {
 			console.log('body', body);
 			var list = [];
 			xml2json(body, function(err, result) {
-				for (var i = 0; i < result.queryresult.pod.length; i++) {
-					var pod = result.queryresult.pod[i];
-					list.push(pod.subpod[0].plaintext[0]);
+				if(result.queryresult.pod) {
+					for (var i = 0; i < result.queryresult.pod.length; i++) {
+						var pod = result.queryresult.pod[i];
+						list.push(pod.subpod[0].plaintext[0]);
+					}
 				}
 			// console.log(list);
 			other.push({wolf: list})

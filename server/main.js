@@ -17,7 +17,6 @@ app.use(express.static('public'))
 app.use('/interview', interview);
 
 app.post('/audio', function (req, res) {
-	console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
 	transcribe(req.body)
 		.then((text) => {
 			return Promise.all([
@@ -30,6 +29,7 @@ app.post('/audio', function (req, res) {
 		// 	wolf(analRes[0].keywords[0].text, analRes)
 		// })
 		.then((analRes) => {
+			console.log(wolf(analRes[0].keywords[0].text, analRes)[2])
 			res.json(analRes);
 		})
 		.catch((err) => {

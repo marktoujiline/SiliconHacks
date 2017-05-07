@@ -51,7 +51,7 @@ function toggleRecord() {
         if (recording) {
             recorder.stop()
             recorder.exportWAV((b) => { // Send data to server
-                sendData().then((next) => {
+                sendData(b).then((next) => {
                     setQuestion(next);
                     recorder.clear();
                 })

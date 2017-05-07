@@ -6,6 +6,7 @@ var app = express();
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.raw({ type: 'audio/wav', limit: '50mb' }));
 
+app.use(express.static('public'))
 app.use('/interview', interview);
 
 app.post('/audio', function (req, res) {

@@ -18,11 +18,14 @@ app.post('/audio', function (req, res) {
 	console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
 	transcribe(req.body)
 		.then((text) => {
-			return nlu(text);
+			return Promise.all([
+				nlu(text),
+				tone(text)
+			])
 		})
 		.then((analRes) => {
 			console.log(analRes)
-			res.json(analRes);			
+			res.json(analRes);
 		})
 		.catch((err) => {
 			console.log(err);

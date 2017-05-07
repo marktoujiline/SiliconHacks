@@ -3,7 +3,7 @@ var syllable = require("syllable");
 
 var getVocabLevel = function(text) {
 	var fkScore = getFKScore(text);
-	var comprehensionLevels = ["<5th Grade", "5th Grade", "6th Grade", "7th Grade", "8th - 9th Grade", "10th - 11th Grade", "College", "College Graduate", "English PHD showing off"];
+	var comprehensionLevels = ["<5th Grade", "5th Grade", "6th Grade", "7th Grade", "8th - 9th Grade", "10th - 11th Grade", "College", "College Graduate", "PHD Showing Off"];
 	var nScore = Math.ceil(fkScore/10);
 	var level = 0;
 	if (nScore > 10)

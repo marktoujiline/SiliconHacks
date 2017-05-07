@@ -6,6 +6,8 @@ var nlu = require('./Routes/nlu').nlu;
 var tone = require('./Routes/nlu').tone;
 var app = express();
 var vocab = require('./vocab');
+var wolf = require('./wolf');
+wolf("Dobby").then(function(res) {console.log(res)});
 
 app.use(express.static('public'));
 

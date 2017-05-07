@@ -56,7 +56,6 @@ function toggleRecord() {
             recorder.exportWAV((b) => { // Send data to server
                 sendData(b).then((result) => {
                     updateQuestion();
-                    $(".result").text(JSON.stringify(result));
                     recorder.clear();
                 })
                 .catch(() => {

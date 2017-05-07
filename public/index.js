@@ -1,8 +1,6 @@
 'use strict';
 
 (function(){
-
-
 var recorder;
 var audio_context;
 
@@ -53,9 +51,10 @@ function toggleRecord() {
         if (recording) {
             recorder.stop()
             recorder.exportWAV((b) => {
-                Recorder.forceDownload(b); 
-                recorder.clear();
-                console.log(b);
+                sendData().then((next) => {
+                    setQuestion(next);
+                    recorder.clear();
+                })                
             })
         } else {
             recorder.record()
@@ -66,4 +65,17 @@ function toggleRecord() {
     };
 }
 
+// TODO
+function setQuestion(q) {
+    console.log(q);
+}
+
+function sendData(b) {
+    $.ajax("audio", {
+        data: b,
+        processData: false,
+        success: (res) => console.log("response: ", res),
+        error: (err) => console.log("response: ", err)
+    });
+}
 })();

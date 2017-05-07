@@ -21,7 +21,8 @@ app.post('/audio', function (req, res) {
 		.then((text) => {
 			return Promise.all([
 				nlu(text),
-				tone(text)
+				tone(text),
+				vocab(text)
 			])
 		})
 		.then((analRes) => {

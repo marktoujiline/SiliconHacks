@@ -54,7 +54,10 @@ function toggleRecord() {
                 sendData().then((next) => {
                     setQuestion(next);
                     recorder.clear();
-                });
+                })
+                .catch(() => {
+                    console.log("Error sending audio");
+                })
             })
         } else {
             recorder.record()
@@ -71,11 +74,21 @@ function setQuestion(q) {
 }
 
 function sendData(b) {
-    $.ajax("audio", {
-        data: b,
-        processData: false,
-        success: (res) => console.log("response: ", res),
-        error: (err) => console.log("response: ", err)
+    return new Promise((resolve, rej) => {
+        $.ajax("audio", {
+                method: 'POST',
+                data: b,
+                contentType: "audio/wav",
+                processData: false,
+                success: (res) => {
+                    console.log("response: ", res); 
+                    resolve(res)
+                },
+                error: (err) => {
+                    console.log("response: ", err);
+                    rej()
+                }
+            });
     });
 }
 })();

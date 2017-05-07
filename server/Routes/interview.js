@@ -4,7 +4,7 @@ var router = express.Router();
 
 var questions = [
     //'Why do you want to work for this company?',
-    'If you could move a mountain, where would you put it, and why?',
+    // 'If you could move a mountain, where would you put it, and why?',
     'How would you save the world?'
 ]
 

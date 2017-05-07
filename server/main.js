@@ -7,7 +7,6 @@ var tone = require('./Routes/nlu').tone;
 var app = express();
 var vocab = require('./vocab');
 var wolf = require('./wolf');
-wolf("Dobby").then(function(res) {console.log(res)});
 
 app.use(express.static('public'));
 
@@ -27,8 +26,10 @@ app.post('/audio', function (req, res) {
 				vocab(text)
 			])
 		})
+		// .then((analRes) => {
+		// 	wolf(analRes[0].keywords[0].text, analRes)
+		// })
 		.then((analRes) => {
-			console.log(analRes)
 			res.json(analRes);
 		})
 		.catch((err) => {

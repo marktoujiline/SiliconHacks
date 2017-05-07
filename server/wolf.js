@@ -5,8 +5,12 @@ var url = "http://api.wolframalpha.com/v2/query?appid=H77RUP-YKLXJJVT4X&format=p
 
 
 
-module.exports = function(topic) {
+module.exports = function(topic, other) {
 	return new Promise(function(res, rej) {
+		if(!topic) {
+			res(other);
+			return;
+		}
 		request(url+topic, function (err, response, body) {
 			console.log('error', err);
 			console.log('statusCode', response && response.statusCode);
@@ -18,7 +22,8 @@ module.exports = function(topic) {
 					list.push(pod.subpod[0].plaintext[0]);
 				}
 			// console.log(list);
-			res(list);
+			other.push({wolf: list})
+			res(other);
 			});
 		});
 	});

@@ -89,9 +89,10 @@ function sendData(b) {
                     resolve(res)
                 },
                 error: (err) => {
-                    console.log("response: ", err);
+                    console.log("error: ", err);
                     rej()
-                }
+                },
+                timeout: 20000
             });
     });
 }
@@ -124,15 +125,25 @@ function updateQuestion() {
 function showSummary() {
     for(var prop in results) {
         var r = $('.result');
-        var title = $('<h2></h2>').text(prop).appendTo(r);
+        var title = $('<h1></h1>').text(prop).appendTo(r);
         
+        $("<h2></h2>")
+            .text("Language level: " + results[prop][2])
+            .appendTo(r);
+        
+        $("<h2></h2>").text("Keywords mentioned").appendTo(r);
+        
+        results[prop][0].keywords.forEach((k) => {
+            $("<p></p>").text(k.text).appendTo(r);
+        });
+
         var t = results[prop][1]
             .document_tone
             .tone_categories.forEach(function(e) {
                 $('<h3></h3>').text(e.category_name).appendTo(r);
                 e.tones.forEach((tone) => 
                     $("<p></p>")
-                        .text(tone.tone_name + " " + tone.score*100 + "%")
+                        .text(tone.tone_name + " " + Math.floor(tone.score*100) + "%")
                         .appendTo(r)
                 )
             });

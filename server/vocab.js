@@ -63,7 +63,11 @@ function assert(condition, msg) {
 	}
 }
 
-module.exports=getVocabLevel;
+module.exports = function(text) {
+	return new Promise(function(res, rej) {
+		res(getVocabLevel(text))
+	})
+};
 
 //assert (countSentences(text) === 1, "count sentences");
 //assert (countWords(text) === 8, "count words");

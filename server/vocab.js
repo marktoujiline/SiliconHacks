@@ -1,7 +1,7 @@
 var syllable = require("syllable");
 
 
-var getLevel = function(text) {
+var getVocabLevel = function(text) {
 	var fkScore = getFKScore(text);
 	var comprehensionLevels = ["<5th Grade", "5th Grade", "6th Grade", "7th Grade", "8th - 9th Grade", "10th - 11th Grade", "College", "College Graduate", "English PHD showing off"];
 	var nScore = Math.ceil(fkScore/10);
@@ -63,15 +63,17 @@ function assert(condition, msg) {
 	}
 }
 
+module.exports=getVocabLevel;
+
 //assert (countSentences(text) === 1, "count sentences");
 //assert (countWords(text) === 8, "count words");
 //assert (getWordSentenceScore(text) === 8, "score word/sentence");
 //assert (countSentences(text) !== 6, "count syllables");
 //assert (getSyllableWordScore(text) === 1, "score syllable/word");
 
-var text = "The Natural Language understanding purpose analyzes text to extract keywords, concept, entities, sentiment, and roles using natural lanaguage understanding."
-console.log("Sentence count ", countSentences(text));
-console.log("Word count ", countWords(text));
-console.log("Word/sentence score ", getWordSentenceScore(text));
-console.log("Syllable count ", countSyllables(text));
-console.log("Total score", getFKScore(text));
+// var text = "The Natural Language understanding purpose analyzes text to extract keywords, concept, entities, sentiment, and roles using natural lanaguage understanding."
+// console.log("Sentence count ", countSentences(text));
+// console.log("Word count ", countWords(text));
+// console.log("Word/sentence score ", getWordSentenceScore(text));
+// console.log("Syllable count ", countSyllables(text));
+// console.log("Total score", getFKScore(text));

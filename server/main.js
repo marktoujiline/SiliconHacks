@@ -5,6 +5,7 @@ var transcribe = require('./Routes/transcribe');
 var nlu = require('./Routes/nlu').nlu;
 var tone = require('./Routes/nlu').tone;
 var app = express();
+var vocab = require('./vocab');
 
 app.use(express.static('public'));
 

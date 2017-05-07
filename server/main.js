@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var interview = require('./Routes/interview');
+var transcribe = require('./Routes/transcribe');
 var app = express();
 
 app.use(express.static('public'));

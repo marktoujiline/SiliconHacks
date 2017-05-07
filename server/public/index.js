@@ -97,6 +97,9 @@ function updateQuestion() {
                 $(".instructions").text(q.question);
                 questionNumber++;
                 res(q);
+				if(q.done){
+					$('div').fadeOut();
+				}
             },
             error: () => {
                 console.error("error getting question");

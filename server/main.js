@@ -6,7 +6,6 @@ var nlu = require('./Routes/nlu').nlu;
 var tone = require('./Routes/nlu').tone;
 var app = express();
 var vocab = require('./vocab');
-var score = require("./score");
 
 app.use(express.static('public'));
 

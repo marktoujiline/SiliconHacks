@@ -1,9 +1,12 @@
 'use strict';
 
 (function(){
+
 var recorder;
 var audio_context;
 var questionNumber = 0;
+var currentQuestion = "";
+var results = {};
 
 // On window load
 $(function () {
@@ -29,6 +32,8 @@ $(function () {
 
     // Setup record button
     $(".loaders").on("click", toggleRecord());
+
+    updateQuestion();
 });
 
 
@@ -55,6 +60,7 @@ function toggleRecord() {
             recorder.stop()
             recorder.exportWAV((b) => { // Send data to server
                 sendData(b).then((result) => {
+                    results[currentQuestion] = result;
                     updateQuestion();
                     recorder.clear();
                 })
@@ -94,12 +100,17 @@ function updateQuestion() {
     return new Promise((res, rej) => {
         $.ajax(`/interview/question/${questionNumber}`,{
             success: (q) => {
+                if(q.done){
+					$('.fade').fadeOut();
+                    showSummary();
+                    res();
+                    return;
+				}
+
                 $(".instructions").text(q.question);
                 questionNumber++;
+                currentQuestion = q.question;            
                 res(q);
-				if(q.done){
-					$('div').fadeOut();
-				}
             },
             error: () => {
                 console.error("error getting question");
@@ -108,4 +119,25 @@ function updateQuestion() {
         })
     });
 }
+
+
+function showSummary() {
+    for(var prop in results) {
+        var r = $('.result');
+        var title = $('<h2></h2>').text(prop).appendTo(r);
+        
+        var t = results[prop][1]
+            .document_tone
+            .tone_categories.forEach(function(e) {
+                $('<h3></h3>').text(e.category_name).appendTo(r);
+                e.tones.forEach((tone) => 
+                    $("<p></p>")
+                        .text(tone.tone_name + " " + tone.score*100 + "%")
+                        .appendTo(r)
+                )
+            });
+    }
+}
+
+
 })();
